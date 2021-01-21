@@ -1,17 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import styled from 'styled-components';
+import React from "react";
+import { Text } from "react-native";
+import styled from "styled-components";
+import BaseStationStatus from "./components/BaseStationStatus";
 
-export default function App() {
-  return (
-    <Container>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </Container>
-  );
+export default class App extends React.Component {
+  render() {
+    return (
+      <Container>
+        <BaseStationStatus name={'Base Station'} status={'Online'} firmware={'1.05.01'} id={'E32K55E82DW93..'} />
+      </Container>
+    );
+  }
 }
 
 const Container = styled.View`
-
+  background: #f0f3f5;
+  flex: 1;
 `;
