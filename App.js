@@ -1,19 +1,20 @@
 import React from "react";
 import { Text } from "react-native";
 import styled from "styled-components";
-import BaseStationStatus from "./components/BaseStationStatus";
+import BaseStationScreen from './screens/BaseStationScreen.js'
+
 
 export default class App extends React.Component {
   render() {
     return (
       <Container>
-        <BaseStationStatus name={'Base Station'} status={'Online'} firmware={'1.05.01'} id={'E32K55E82DW93..'} />
+        <BaseStationScreen />
       </Container>
     );
   }
 }
 
 const Container = styled.View`
-  background: #f0f3f5;
+  background: #F4F0ED;
   flex: 1;
 `;

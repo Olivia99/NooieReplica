@@ -5,7 +5,20 @@ import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width;
 
 class BaseStationStatus extends React.Component {
+    state = {
+        active: 0,
+        translateY: -1000
+    };
+
+    // handleChange = type => {
+    //     let {active, translateY} = this.state;
+
+    //     }
+    // }
+
     render() {
+        let { active, translateY } = this.state;
+
         return (
             <Container>
                 <Wrapper>
@@ -50,14 +63,18 @@ class BaseStationStatus extends React.Component {
 
                     </Content>
                 </Wrapper>
-            </Container>
 
+
+            </Container>
 
 
         )
     }
 
 }
+
+const Tab = styled.View`
+`;
 
 const Container = styled.View`
 /* color: #FCF6F1; */
@@ -67,21 +84,16 @@ height: 250px;
 justify-content: center;
 
 z-index: 1;
-border-bottom-left-radius: 10px;
-border-bottom-right-radius: 10px;
-box-shadow: 0 0px 5px rgba(32,44,90,0.15);
+border-bottom-left-radius: 20px;
+border-bottom-right-radius: 20px;
+box-shadow: 0 1px 7px rgba(32,44,90,0.15);
 
-position: absolute;
-top: 0;
-left:0;
 `;
-
 const Text = styled.Text`
 color: #585967;
-font-size: 16px;
+font-size: 14px;
 
 `;
-
 const Wrapper = styled.View`
 flex-direction: row;
 align-items: center;
@@ -106,7 +118,6 @@ margin-right:40px;
 width: 60px;
 height: 127px;
 `;
-
 const Item = styled.View`
 flex-direction: row;
 align-items: center;
@@ -116,9 +127,8 @@ const Action = styled.View``;
 const ActionText = styled.Text`
 
 color: #4A6ACE;
-font-size: 16px;
+font-size: 14px;
 
 `;
-
 
 export default BaseStationStatus
