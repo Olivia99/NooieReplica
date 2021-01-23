@@ -6,16 +6,19 @@ import {
     TouchableOpacity,
     Animated,
     ScrollView,
+    PanResponder
 } from "react-native";
 import BSDeviceCard from '../components/BSDeviceCard';
 import AddDeviceBtn from '../components/AddDeviceBtn';
 import BaseStationStatus from '../components/BaseStationStatus';
+import ListItem from '../components/listItem';
 
 
 
 const screenWidth = Dimensions.get("window").width;
 
 class BaseStationScreen extends React.Component {
+
     state = {
         active: 0,
         translateY: -1000,
@@ -24,6 +27,7 @@ class BaseStationScreen extends React.Component {
         translateXTabOne: new Animated.Value(0),
         translateXTabTwo: new Animated.Value(screenWidth),
     }
+
 
     handleSlide = tyle => {
         let { active, translateXTabOne, translateXTabTwo, translateY, xTabOne, xTabTwo } = this.state
@@ -136,7 +140,8 @@ class BaseStationScreen extends React.Component {
 
 
 
-                        <Text>Settings</Text>
+                        <ListItem title={"Ringtone"} image={require('../assets/arrow_2x.png')} />
+                        <ListItem title={"Ringtone Volume"} />
 
 
 

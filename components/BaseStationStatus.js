@@ -1,71 +1,104 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Dimensions } from "react-native";
+import { Dimensions, PanResponder, Animated } from "react-native";
 
 const screenWidth = Dimensions.get("window").width;
 
 class BaseStationStatus extends React.Component {
     state = {
         active: 0,
-        translateY: -1000
+        translateY: -1000,
+        moved: false,
     };
 
-    // handleChange = type => {
-    //     let {active, translateY} = this.state;
+    pan = new Animated.ValueXY();
+    panResponder = PanResponder.create({
+        onMoveShouldSetPanResponder: () => true,
+        onPanResponderGrant: () => {
 
-    //     }
-    // }
+            this.pan.setOffset({
+                y: this.pan.y._value
+            });
+
+
+        },
+        onPanResponderMove: Animated.event([
+            null,
+            { dy: this.pan.y }
+        ]),
+
+        onPanResponderRelease: () => {
+
+        }
+    });
+
+    position = 0;
+    display = "block"
 
     render() {
-        let { active, translateY } = this.state;
-
+        let { active, translateY, moved, position, display } = this.state;
+        if (moved) {
+            position = -140;
+            display = "none"
+        }
         return (
-            <Container>
-                <Wrapper>
-                    <Image source={require('../assets/baseStation_2x.png')} renderMode='contain' />
-                    < Content >
-                        <Item>
-                            <TextWrapper>
-                                <Text>Name: </Text>
-                                <Text>{this.props.name}</Text>
-                            </TextWrapper>
-                            <Action>
+            <Animated.View
+                style={{
+                    transform: [{ translateY: this.pan.y }]
+                }}
+                {...this.panResponder.panHandlers}
+            >
 
-                            </Action>
-                        </Item>
+                <Container style={{ top: position }} >
+                    <TopWrapper>
+                        <Wrapper style={{ display: display }}>
+                            <Image source={require('../assets/baseStation_2x.png')} renderMode='contain' />
+                            < Content >
+                                <Item>
+                                    <TextWrapper>
+                                        <Text>Name: </Text>
+                                        <Text>{this.props.name}</Text>
+                                    </TextWrapper>
+                                    <Action>
+
+                                    </Action>
+                                </Item>
 
 
-                        <TextWrapper>
-                            <Text>Status: </Text>
-                            <Text>{this.props.status}</Text>
+                                <TextWrapper>
+                                    <Text>Status: </Text>
+                                    <Text>{this.props.status}</Text>
 
-                        </TextWrapper>
+                                </TextWrapper>
 
-                        <Item>
-                            <TextWrapper>
+                                <Item>
+                                    <TextWrapper>
 
-                                <Text>Firmware: </Text>
-                                <Text>{this.props.firmware}</Text>
-                            </TextWrapper>
-                            <Action>
-                                <ActionText>UPDATE</ActionText>
-                            </Action>
-                        </Item>
-                        <Item>
-                            <TextWrapper>
-                                <Text>ID: </Text>
-                                <Text>{this.props.id}</Text>
-                            </TextWrapper>
-                            <ActionText>
-                                COPY
+                                        <Text>Firmware: </Text>
+                                        <Text>{this.props.firmware}</Text>
+                                    </TextWrapper>
+                                    <Action>
+                                        <ActionText>UPDATE</ActionText>
+                                    </Action>
+                                </Item>
+                                <Item>
+                                    <TextWrapper>
+                                        <Text>ID: </Text>
+                                        <Text>{this.props.id}</Text>
+                                    </TextWrapper>
+                                    <ActionText>
+                                        COPY
                         </ActionText>
-                        </Item>
+                                </Item>
 
-                    </Content>
-                </Wrapper>
+                            </Content>
+                        </Wrapper>
+                    </TopWrapper>
+                    <Bar></Bar>
+                </Container>
 
 
-            </Container>
+            </Animated.View>
 
 
         )
@@ -75,19 +108,31 @@ class BaseStationStatus extends React.Component {
 
 const Tab = styled.View`
 `;
-
-const Container = styled.View`
-/* color: #FCF6F1; */
+const TopWrapper = styled.View`
 background-color: #FCF6F1;
 width: 100%;
 height: 250px;
 justify-content: center;
+
 
 z-index: 1;
 border-bottom-left-radius: 20px;
 border-bottom-right-radius: 20px;
 box-shadow: 0 1px 7px rgba(32,44,90,0.15);
 
+`;
+const Bar = styled.View`
+width: 100px;
+height: 5px;
+background-color: #D8D3D2;
+margin-top: -20px;
+z-index:2;
+border-radius: 10px;
+
+`;
+const Container = styled.View`
+/* color: #FCF6F1; */
+align-items:center;
 `;
 const Text = styled.Text`
 color: #585967;
