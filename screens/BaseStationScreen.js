@@ -6,12 +6,14 @@ import {
     TouchableOpacity,
     Animated,
     ScrollView,
-    PanResponder
+    PanResponder,
+
 } from "react-native";
 import BSDeviceCard from '../components/BSDeviceCard';
 import AddDeviceBtn from '../components/AddDeviceBtn';
 import BaseStationStatus from '../components/BaseStationStatus';
 import ListItem from '../components/listItem';
+
 
 
 
@@ -26,8 +28,83 @@ class BaseStationScreen extends React.Component {
         xTabTwo: 0,
         translateXTabOne: new Animated.Value(0),
         translateXTabTwo: new Animated.Value(screenWidth),
+        collapse: false,
+        opacity: 1,
+        pan: new Animated.ValueXY(),
+        margin: 250
+
     }
 
+
+    UNSAFE_componentWillMount() {
+        this._panResponder = PanResponder.create({
+            onMoveShouldSetPanResponder: () => true,
+            onPanResponderGrant: () => {
+                this.state.pan.setOffset({
+                    y: this.state.pan.y._value
+                });
+            },
+
+            onPanResponderMove: Animated.event([
+                null,
+                { dy: this.state.pan.y }
+            ]),
+
+            onPanResponderRelease: () => {
+                const positionY = this.state.pan.y._value
+                console.log(positionY)
+
+                // this.setState({
+                //     display: "none",
+                // })
+                if (!this.state.collapse) {
+                    if (positionY < -10) {
+                        this.setState({
+                            opacity: 0,
+                            margin: 0,
+                            collapse: true
+                        })
+
+                        Animated.spring(this.state.pan, { toValue: { x: 0, y: 0 } }).start();
+
+                    }
+                    else {
+                        Animated.spring(this.state.pan, { toValue: { x: 0, y: 0 } }).start();
+                    }
+
+
+                } else {
+                    if (positionY > 50) {
+                        this.setState({
+                            opacity: 1,
+                            margin: 250,
+                            collapse: false
+                        })
+                        Animated.spring(this.state.pan, { toValue: { x: 0, y: 0 } }).start();
+
+                    }
+                    else {
+                        Animated.spring(this.state.pan, { toValue: { x: 0, y: 0 } }).start();
+                    }
+
+                }
+
+
+
+
+                // else if (positionY > 100) {
+                //     this.setState({
+                //         opacity: 1,
+                //         margin: 0,
+                //     })
+                //     Animated.spring(this.state.pan, { toValue: { x: 0, y: 130 } }).start();
+                // } else {
+                //     Animated.spring(this.state.pan, { toValue: { x: 0, y: 0 } }).start();
+                // }
+
+            }
+        });
+    }
 
     handleSlide = tyle => {
         let { active, translateXTabOne, translateXTabTwo, translateY, xTabOne, xTabTwo } = this.state
@@ -55,12 +132,32 @@ class BaseStationScreen extends React.Component {
             ]);
         }
     }
+
+
+
     render() {
+
         let { active, translateY, translateXTabOne, translateXTabTwo, xTabTwo, xTabOne } = this.state
+
         return (
             <Container>
-                <BaseStationStatus name={'Base Station'} status={'Online'} firmware={'1.05.01'} id={'E32K55E82DW93..'} />
+                <Animated.View
+                    style={{
+                        transform: [{ translateY: this.state.pan.y }]
+                    }}
+                    {...this._panResponder.panHandlers}
+                >
+                    <Spacer style={{ height: this.state.margin }}>
+                        <Top>
+                            <StatusWrapper style={{ opacity: this.state.opacity }}>
+                                <BaseStationStatus name={'Base Station'} status={'Online'} firmware={'1.05.01'} id={'E32K55E82DW93..'} />
 
+                            </StatusWrapper>
+
+                        </Top>
+                        <Bar></Bar>
+                    </Spacer >
+                </Animated.View>
                 <TabBarWrapper>
                     <TouchableOpacity
                         style={{ paddingRight: "10%" }}
@@ -166,7 +263,46 @@ flex-direction: row;
 justify-content: center;
 align-items: center;
 padding-top:20px;
-padding-bottom:20px;
+padding-bottom:30px;
 width:100%;
+
+
+`;
+
+const StatusWrapper = styled.View`
+
+padding-bottom:20px;
+
+
+`;
+
+const Top = styled.View`
+/* opacity: 0;
+margin-top:-130 */
+`;
+
+const Spacer = styled.View`
+padding-top:100px;
+background-color: #FCF6F1;
+width: 100%;
+justify-content: space-between;
+z-index: 1;
+border-bottom-left-radius: 20px;
+border-bottom-right-radius: 20px;
+box-shadow: 0 1px 7px rgba(32,44,90,0.15);
+align-items: center;
+
+
+`;
+
+
+const Bar = styled.View`
+width: 100px;
+height: 5px;
+background-color: #D8D3D2;
+z-index:2;
+border-radius: 10px;
+margin-bottom: 20px;
+margin-top: -10px;
 
 `;

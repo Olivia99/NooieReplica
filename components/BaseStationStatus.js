@@ -1,104 +1,74 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Dimensions, PanResponder, Animated } from "react-native";
+import { Dimensions, PanResponder, Animated, TouchableOpacity } from "react-native";
+
+import Clipboard from '@react-native-community/clipboard'
 
 const screenWidth = Dimensions.get("window").width;
 
 class BaseStationStatus extends React.Component {
-    state = {
-        active: 0,
-        translateY: -1000,
-        moved: false,
-    };
-
-    pan = new Animated.ValueXY();
-    panResponder = PanResponder.create({
-        onMoveShouldSetPanResponder: () => true,
-        onPanResponderGrant: () => {
-
-            this.pan.setOffset({
-                y: this.pan.y._value
-            });
-
-
-        },
-        onPanResponderMove: Animated.event([
-            null,
-            { dy: this.pan.y }
-        ]),
-
-        onPanResponderRelease: () => {
-
-        }
-    });
-
-    position = 0;
-    display = "block"
 
     render() {
-        let { active, translateY, moved, position, display } = this.state;
-        if (moved) {
-            position = -140;
-            display = "none"
-        }
+
+
+
         return (
-            <Animated.View
-                style={{
-                    transform: [{ translateY: this.pan.y }]
-                }}
-                {...this.panResponder.panHandlers}
-            >
 
-                <Container style={{ top: position }} >
-                    <TopWrapper>
-                        <Wrapper style={{ display: display }}>
-                            <Image source={require('../assets/baseStation_2x.png')} renderMode='contain' />
-                            < Content >
-                                <Item>
-                                    <TextWrapper>
-                                        <Text>Name: </Text>
-                                        <Text>{this.props.name}</Text>
-                                    </TextWrapper>
-                                    <Action>
+            <Container  >
 
-                                    </Action>
-                                </Item>
+                <Wrapper style={{ display: "block" }}>
+                    <Image source={require('../assets/baseStation_2x.png')} renderMode='contain' />
+                    < Content >
+                        <Item>
+                            <TextWrapper>
+                                <Text>Name: </Text>
+                                <Text>{this.props.name}</Text>
+                            </TextWrapper>
+                            <Action>
+
+                            </Action>
+                        </Item>
 
 
-                                <TextWrapper>
-                                    <Text>Status: </Text>
-                                    <Text>{this.props.status}</Text>
+                        <TextWrapper>
+                            <Text>Status: </Text>
+                            <Text>{this.props.status}</Text>
 
-                                </TextWrapper>
+                        </TextWrapper>
 
-                                <Item>
-                                    <TextWrapper>
+                        <Item>
+                            <TextWrapper>
 
-                                        <Text>Firmware: </Text>
-                                        <Text>{this.props.firmware}</Text>
-                                    </TextWrapper>
-                                    <Action>
-                                        <ActionText>UPDATE</ActionText>
-                                    </Action>
-                                </Item>
-                                <Item>
-                                    <TextWrapper>
-                                        <Text>ID: </Text>
-                                        <Text>{this.props.id}</Text>
-                                    </TextWrapper>
-                                    <ActionText>
-                                        COPY
-                        </ActionText>
-                                </Item>
+                                <Text>Firmware: </Text>
+                                <Text>{this.props.firmware}</Text>
+                            </TextWrapper>
+                            <Action>
+                                <TouchableOpacity>
+                                    <ActionText>UPDATE</ActionText>
+                                </TouchableOpacity>
+                            </Action>
+                        </Item>
+                        <Item>
+                            <TextWrapper>
+                                <Text>ID: </Text>
 
-                            </Content>
-                        </Wrapper>
-                    </TopWrapper>
-                    <Bar></Bar>
-                </Container>
+                                <Text>{this.props.id}</Text>
+
+                            </TextWrapper>
+                            <TouchableOpacity>
+                                <ActionText>COPY</ActionText>
+                            </TouchableOpacity>
 
 
-            </Animated.View>
+                        </Item>
+
+                    </Content>
+                </Wrapper>
+
+            </Container>
+
+
+
 
 
         )
@@ -109,30 +79,14 @@ class BaseStationStatus extends React.Component {
 const Tab = styled.View`
 `;
 const TopWrapper = styled.View`
-background-color: #FCF6F1;
-width: 100%;
-height: 250px;
-justify-content: center;
 
-
-z-index: 1;
-border-bottom-left-radius: 20px;
-border-bottom-right-radius: 20px;
-box-shadow: 0 1px 7px rgba(32,44,90,0.15);
-
-`;
-const Bar = styled.View`
-width: 100px;
-height: 5px;
-background-color: #D8D3D2;
-margin-top: -20px;
-z-index:2;
-border-radius: 10px;
 
 `;
 const Container = styled.View`
 /* color: #FCF6F1; */
 align-items:center;
+justify-content: space-between;
+
 `;
 const Text = styled.Text`
 color: #585967;
@@ -145,7 +99,7 @@ align-items: center;
 justify-content: center;
 padding-left:20px;
 padding-right:20px;
-margin-bottom: -30px;
+
 
 `;
 const Content = styled.View`
@@ -175,5 +129,7 @@ color: #4A6ACE;
 font-size: 14px;
 
 `;
+
+
 
 export default BaseStationStatus
