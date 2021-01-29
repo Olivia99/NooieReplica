@@ -1,29 +1,49 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Dimensions } from "react-native";
-import { render } from 'react-dom';
+import { Dimensions, TouchableOpacity } from "react-native";
+import { Popup } from '../components/popup';
+
 
 const screenWidth = Dimensions.get("window").width;
 
-const BSDeviceCard = props => (
+class BSDeviceCard extends React.Component {
 
-    <Container style={{ width: screenWidth - 40 }}>
-        <WrapperI>
-            <Image source={props.image} style={{ width: (screenWidth - 40) / 3 }} />
+    render() {
 
-            <Wrapper>
-                <Title>{props.title}</Title>
-                <SignalWrapper>
-                    <Icon source={require("../assets/wifi_2x.png")} />
-                    <Signal>{props.signal}</Signal>
-                </SignalWrapper>
-            </Wrapper>
-        </WrapperI>
-        <Unlink source={require("../assets/unlink_2x.png")} />
+        let popupRef = React.createRef()
+        const onShowPopup = () => {
+            popupRef.show()
 
+        }
 
-    </Container>
-);
+        return (
+            <Container style={{ width: screenWidth - 40 }}>
+                <WrapperI>
+                    <Image source={this.props.image} style={{ width: (screenWidth - 40) / 3 }} />
+
+                    <Wrapper>
+                        <Title>{this.props.title}</Title>
+                        <SignalWrapper>
+                            <Icon source={require("../assets/wifi_2x.png")} />
+                            <Signal>{this.props.signal}</Signal>
+                        </SignalWrapper>
+                    </Wrapper>
+                </WrapperI>
+                <TouchableOpacity onPress={onShowPopup}>
+                    <Unlink source={require("../assets/unlink_2x.png")} />
+                </TouchableOpacity>
+                <Popup
+                    ref={(target) => popupRef = target}
+                    // onTouchOutside={onClosePopup}
+                    title="Unlink Device"
+                    deviceName={this.props.title}
+                />
+
+            </Container>
+        )
+    }
+
+};
 
 
 
@@ -39,6 +59,7 @@ flex-direction: row;
 justify-content: space-between;
 padding-right:40px;
 align-items: center;
+margin-bottom: 20px;
 `;
 
 const Image = styled.Image`

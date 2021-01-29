@@ -55,7 +55,7 @@ class BaseStationStatus extends React.Component {
                                 <Text>{this.props.id}</Text>
 
                             </TextWrapper>
-                            <TouchableOpacity>
+                            <TouchableOpacity >
                                 <ActionText>COPY</ActionText>
                             </TouchableOpacity>
 

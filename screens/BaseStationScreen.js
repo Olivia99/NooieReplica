@@ -7,12 +7,15 @@ import {
     Animated,
     ScrollView,
     PanResponder,
+    TouchableWithoutFeedback,
 
 } from "react-native";
 import BSDeviceCard from '../components/BSDeviceCard';
 import AddDeviceBtn from '../components/AddDeviceBtn';
 import BaseStationStatus from '../components/BaseStationStatus';
 import ListItem from '../components/listItem';
+import { Popup } from '../components/popup';
+
 
 
 
@@ -20,6 +23,8 @@ import ListItem from '../components/listItem';
 const screenWidth = Dimensions.get("window").width;
 
 class BaseStationScreen extends React.Component {
+
+
 
     state = {
         active: 0,
@@ -31,7 +36,8 @@ class BaseStationScreen extends React.Component {
         collapse: false,
         opacity: 1,
         pan: new Animated.ValueXY(),
-        margin: 250
+        margin: 250,
+        show: false
 
     }
 
@@ -89,19 +95,6 @@ class BaseStationScreen extends React.Component {
 
                 }
 
-
-
-
-                // else if (positionY > 100) {
-                //     this.setState({
-                //         opacity: 1,
-                //         margin: 0,
-                //     })
-                //     Animated.spring(this.state.pan, { toValue: { x: 0, y: 130 } }).start();
-                // } else {
-                //     Animated.spring(this.state.pan, { toValue: { x: 0, y: 0 } }).start();
-                // }
-
             }
         });
     }
@@ -138,6 +131,15 @@ class BaseStationScreen extends React.Component {
     render() {
 
         let { active, translateY, translateXTabOne, translateXTabTwo, xTabTwo, xTabOne } = this.state
+        let popupRef = React.createRef()
+        const onShowPopup = () => {
+            popupRef.show()
+
+        }
+        // let onClosePopup = () => {
+        //     popupRef.close()
+        // }
+
 
         return (
             <Container>
@@ -211,9 +213,8 @@ class BaseStationScreen extends React.Component {
                     >
 
 
-
-
                         <BSDeviceCard image={require("../assets/garage.jpg")} title={"Garage Door"} signal={"Strong"} />
+                        <BSDeviceCard image={require("../assets/birdHouse.png")} title={"Bird House"} signal={"Strong"} />
 
                         <AddDeviceBtn></AddDeviceBtn>
 
@@ -235,12 +236,8 @@ class BaseStationScreen extends React.Component {
                         }}
                         useNativeDriver="ture">
 
-
-
                         <ListItem title={"Ringtone"} image={require('../assets/arrow_2x.png')} />
                         <ListItem title={"Ringtone Volume"} />
-
-
 
                     </Animated.View>
                 </ScrollView>
