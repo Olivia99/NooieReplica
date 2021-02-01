@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import { TouchableOpacity } from 'react-native'
 
 const AddDeviceBtn = props => (
-    <TouchableOpacity>
-        <Container>
-            <Image source={require("../assets/addDevice_2x.png")} />
-            <Text>Add Device</Text>
-        </Container>
-    </TouchableOpacity>
+
+    <Container>
+        <Image source={require("../assets/addDevice_2x.png")} />
+        <Text>Add Device</Text>
+    </Container>
+
 );
 
 export default AddDeviceBtn

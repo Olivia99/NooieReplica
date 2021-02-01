@@ -1,13 +1,25 @@
 import React from 'react'
 import { Dimensions, Modal, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import styled from 'styled-components'
+import BaseStationScreen from '../screens/BaseStationScreen'
 
 const screenHeight = Dimensions.get("window").height
 const screenWidth = Dimensions.get('window').width
 
 export class Popup extends React.Component {
-    state = {
-        show: false
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            show: false
+        }
+        this.deleteRef = React.createRef()
+    }
+
+    onDeleteDevice = (key) => {
+        deleteRef.deleteDevice(key)
+
     }
 
     show = () => {
@@ -18,7 +30,7 @@ export class Popup extends React.Component {
         this.setState({ show: false })
     }
     renderContent = () => {
-        const { deviceName } = this.props
+        const { deviceName, key } = this.props
         return (
             <Content style={{ marginBottom: 30, marginTop: 10 }}>
 
@@ -34,6 +46,8 @@ export class Popup extends React.Component {
         )
     }
 
+
+
     renderTitle = () => {
         const { title } = this.props
         return (
@@ -45,16 +59,19 @@ export class Popup extends React.Component {
         )
     }
 
-    renderPrimaryBtn = () => {
-        return (
-            <TouchableOpacity style={{ marginLeft: 50, marginRight: 50, backgroundColor: '#5069C7', height: 45, borderRadius: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ color: '#ffffff', fontSize: 14, fontWeight: '600' }}>
-                    Confirm
-</Text>
-            </TouchableOpacity>
-        )
+    //     renderPrimaryBtn = () => {
+    //         return (
+    //             <TouchableOpacity
 
-    }
+    //                 onPress={() => onDeleteDevice()}
+    //                 style={{ marginLeft: 50, marginRight: 50, backgroundColor: '#5069C7', height: 45, borderRadius: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
+    //                 <Text style={{ color: '#ffffff', fontSize: 14, fontWeight: '600' }}>
+    //                     Confirm
+    // </Text>
+    //             </TouchableOpacity>
+    //         )
+
+    //     }
     renderSecondaryBtn = () => {
         return (
             <TouchableOpacity onPress={() => (this.close())} style={{ marginLeft: 50, marginRight: 50, height: 45, borderRadius: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
@@ -79,8 +96,12 @@ export class Popup extends React.Component {
 
     render() {
 
+
+
+
+
         let { show } = this.state
-        const { onTouchOutside, content, title } = this.props
+        const { onTouchOutside, content, title, key } = this.props
         return (
 
             <Modal
@@ -97,7 +118,18 @@ export class Popup extends React.Component {
 
                         {this.renderTitle()}
                         {this.renderContent()}
-                        {this.renderPrimaryBtn()}
+                        <TouchableOpacity
+
+                            onPress={() => {
+                                this.close(),
+
+                                    setTimeout(() => { this.onDeleteDevice(key) }, 1500)
+                            }}
+                            style={{ marginLeft: 50, marginRight: 50, backgroundColor: '#5069C7', height: 45, borderRadius: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ color: '#ffffff', fontSize: 14, fontWeight: '600' }}>
+                                Confirm
+</Text>
+                        </TouchableOpacity>
                         {this.renderSecondaryBtn()}
 
                     </Background>
@@ -110,6 +142,8 @@ export class Popup extends React.Component {
         )
     }
 }
+
+
 
 const View = styled.View`
 flex: 1;

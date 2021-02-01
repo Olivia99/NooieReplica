@@ -8,7 +8,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Container>
-        <BaseStationScreen />
+        <BaseStationScreen ref={(target) => deleteRef = target} />
       </Container>
     );
   }

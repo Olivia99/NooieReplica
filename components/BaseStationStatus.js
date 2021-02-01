@@ -10,8 +10,6 @@ class BaseStationStatus extends React.Component {
 
     render() {
 
-
-
         return (
 
             <Container  >

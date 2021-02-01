@@ -13,8 +13,9 @@ class BSDeviceCard extends React.Component {
         let popupRef = React.createRef()
         const onShowPopup = () => {
             popupRef.show()
-
         }
+
+
 
         return (
             <Container style={{ width: screenWidth - 40 }}>
@@ -34,9 +35,12 @@ class BSDeviceCard extends React.Component {
                 </TouchableOpacity>
                 <Popup
                     ref={(target) => popupRef = target}
+
                     // onTouchOutside={onClosePopup}
                     title="Unlink Device"
                     deviceName={this.props.title}
+                    key={this.props.id}
+
                 />
 
             </Container>

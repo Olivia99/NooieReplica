@@ -8,15 +8,15 @@ import {
     ScrollView,
     PanResponder,
     TouchableWithoutFeedback,
+    FlatList,
+    View,
 
 } from "react-native";
 import BSDeviceCard from '../components/BSDeviceCard';
 import AddDeviceBtn from '../components/AddDeviceBtn';
 import BaseStationStatus from '../components/BaseStationStatus';
 import ListItem from '../components/listItem';
-import { Popup } from '../components/popup';
-
-
+import DevicesData from '../components/Data'
 
 
 
@@ -25,24 +25,56 @@ const screenWidth = Dimensions.get("window").width;
 class BaseStationScreen extends React.Component {
 
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            active: 0,
+            translateY: -1000,
+            xTabOne: 0,
+            xTabTwo: 0,
+            translateXTabOne: new Animated.Value(0),
+            translateXTabTwo: new Animated.Value(screenWidth),
+            collapse: false,
+            opacity: 1,
+            pan: new Animated.ValueXY(),
+            margin: 250,
+            show: false,
+            data: DevicesData,
+            key: ""
 
-    state = {
-        active: 0,
-        translateY: -1000,
-        xTabOne: 0,
-        xTabTwo: 0,
-        translateXTabOne: new Animated.Value(0),
-        translateXTabTwo: new Animated.Value(screenWidth),
-        collapse: false,
-        opacity: 1,
-        pan: new Animated.ValueXY(),
-        margin: 250,
-        show: false
+        }
 
     }
 
 
+
+    addDevice() {
+        this.setState({
+            data: [
+                ...DevicesData, {
+                    id: 3,
+                    name: 'Master Room',
+                    image: require('../assets/birdHouse.png'),
+                    signal: 'Good'
+                }
+            ]
+        }
+        )
+
+
+    }
+
+
+
+    deleteDevice = (key) => {
+        var arr = this.state.data
+        var pos = arr.indexOf(key);
+        arr.splice(pos, 1)
+        this.setState({ data: arr })
+    }
+
     UNSAFE_componentWillMount() {
+
         this._panResponder = PanResponder.create({
             onMoveShouldSetPanResponder: () => true,
             onPanResponderGrant: () => {
@@ -130,16 +162,12 @@ class BaseStationScreen extends React.Component {
 
     render() {
 
-        let { active, translateY, translateXTabOne, translateXTabTwo, xTabTwo, xTabOne } = this.state
-        let popupRef = React.createRef()
-        const onShowPopup = () => {
-            popupRef.show()
+        let { active, translateY, translateXTabOne, translateXTabTwo, xTabTwo, xTabOne, data } = this.state
 
-        }
-        // let onClosePopup = () => {
-        //     popupRef.close()
-        // }
+        const renderItem = ({ item }) => (
 
+            <BSDeviceCard image={item.image} title={item.name} signal={item.signal} key={item.id} />
+        );
 
         return (
             <Container>
@@ -191,56 +219,56 @@ class BaseStationScreen extends React.Component {
                     </TouchableOpacity>
                 </TabBarWrapper>
 
+                <Animated.View
+                    style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        transform: [
+                            {
+                                translateX: translateXTabOne
+                            }
+                        ]
+                    }}
+                    onLayout={event =>
+                        this.setState({
+                            translateY: event.nativeEvent.layout.height
+                        })}
+                    useNativeDriver={true}
+
+                >
+                    <FlatList
+
+                        data={data}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.id}
+                    />
+                    <TouchableOpacity onPress={() => this.addDevice()}>
+                        <AddDeviceBtn ></AddDeviceBtn>
+                    </TouchableOpacity>
 
 
+                </Animated.View>
 
-                <ScrollView >
-                    <Animated.View
-                        style={{
-                            justifyContent: "center",
-                            alignItems: "center",
-                            transform: [
-                                {
-                                    translateX: translateXTabOne
-                                }
-                            ]
-                        }}
-                        onLayout={event =>
-                            this.setState({
-                                translateY: event.nativeEvent.layout.height
-                            })}
-                        useNativeDriver="ture"
-                    >
+                <Animated.View
+                    style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        transform: [
+                            {
+                                translateX: translateXTabTwo
+                            },
+                            {
+                                translateY: -translateY
+                            }
+                        ]
+                    }}
+                    useNativeDriver={true}>
 
+                    <ListItem title={"Ringtone"} image={require('../assets/arrow_2x.png')} />
+                    <ListItem title={"Ringtone Volume"} />
 
-                        <BSDeviceCard image={require("../assets/garage.jpg")} title={"Garage Door"} signal={"Strong"} />
-                        <BSDeviceCard image={require("../assets/birdHouse.png")} title={"Bird House"} signal={"Strong"} />
+                </Animated.View>
 
-                        <AddDeviceBtn></AddDeviceBtn>
-
-
-                    </Animated.View>
-
-                    <Animated.View
-                        style={{
-                            justifyContent: "center",
-                            alignItems: "center",
-                            transform: [
-                                {
-                                    translateX: translateXTabTwo
-                                },
-                                {
-                                    translateY: -translateY
-                                }
-                            ]
-                        }}
-                        useNativeDriver="ture">
-
-                        <ListItem title={"Ringtone"} image={require('../assets/arrow_2x.png')} />
-                        <ListItem title={"Ringtone Volume"} />
-
-                    </Animated.View>
-                </ScrollView>
             </Container >
         )
     }
