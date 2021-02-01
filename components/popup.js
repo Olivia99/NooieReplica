@@ -30,7 +30,7 @@ export class Popup extends React.Component {
         this.setState({ show: false })
     }
     renderContent = () => {
-        const { deviceName, key } = this.props
+        const { deviceName } = this.props
         return (
             <Content style={{ marginBottom: 30, marginTop: 10 }}>
 
@@ -128,7 +128,7 @@ export class Popup extends React.Component {
                             style={{ marginLeft: 50, marginRight: 50, backgroundColor: '#5069C7', height: 45, borderRadius: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ color: '#ffffff', fontSize: 14, fontWeight: '600' }}>
                                 Confirm
-</Text>
+                            </Text>
                         </TouchableOpacity>
                         {this.renderSecondaryBtn()}
 
