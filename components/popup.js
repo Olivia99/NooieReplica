@@ -17,8 +17,10 @@ export class Popup extends React.Component {
         this.deleteRef = React.createRef()
     }
 
-    onDeleteDevice = (key) => {
-        deleteRef.deleteDevice(key)
+    onDeleteDevice = () => {
+        const { id } = this.props
+        deleteRef.deleteDevice(id)
+        // console.log(id)
 
     }
 
@@ -30,7 +32,7 @@ export class Popup extends React.Component {
         this.setState({ show: false })
     }
     renderContent = () => {
-        const { deviceName } = this.props
+        const { deviceName, id } = this.props
         return (
             <Content style={{ marginBottom: 30, marginTop: 10 }}>
 
@@ -101,7 +103,7 @@ export class Popup extends React.Component {
 
 
         let { show } = this.state
-        const { onTouchOutside, content, title, key } = this.props
+        const { onTouchOutside, content, title, id } = this.props
         return (
 
             <Modal
@@ -123,7 +125,7 @@ export class Popup extends React.Component {
                             onPress={() => {
                                 this.close(),
 
-                                    setTimeout(() => { this.onDeleteDevice(key) }, 1500)
+                                    setTimeout(() => { this.onDeleteDevice(id) }, 1500)
                             }}
                             style={{ marginLeft: 50, marginRight: 50, backgroundColor: '#5069C7', height: 45, borderRadius: 20, width: '80%', justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ color: '#ffffff', fontSize: 14, fontWeight: '600' }}>

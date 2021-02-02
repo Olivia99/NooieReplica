@@ -39,7 +39,7 @@ class BSDeviceCard extends React.Component {
                     // onTouchOutside={onClosePopup}
                     title="Unlink Device"
                     deviceName={this.props.title}
-                    key={this.props.id}
+                    id={this.props.id}
 
                 />
 

@@ -53,7 +53,7 @@ class BaseStationStatus extends React.Component {
                                 <Text>{this.props.id}</Text>
 
                             </TextWrapper>
-                            <TouchableOpacity >
+                            <TouchableOpacity onPress={() => alert('Copied')} >
                                 <ActionText>COPY</ActionText>
                             </TouchableOpacity>
 

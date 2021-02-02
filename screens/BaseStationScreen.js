@@ -66,12 +66,15 @@ class BaseStationScreen extends React.Component {
 
 
 
-    deleteDevice = (key) => {
+    deleteDevice = (id) => {
         var arr = this.state.data
-        var pos = arr.indexOf(key);
-        arr.splice(pos, 1)
+        // var pos = arr.indexOf(id);
+        arr.splice(id, 1)
         this.setState({ data: arr })
+        console.log(id)
+
     }
+
 
     UNSAFE_componentWillMount() {
 
@@ -164,9 +167,14 @@ class BaseStationScreen extends React.Component {
 
         let { active, translateY, translateXTabOne, translateXTabTwo, xTabTwo, xTabOne, data } = this.state
 
+        const pressHandler = (id) => {
+            console.log(id)
+        }
         const renderItem = ({ item }) => (
 
-            <BSDeviceCard image={item.image} title={item.name} signal={item.signal} key={item.id} />
+
+            <BSDeviceCard image={item.image} title={item.name} signal={item.signal} id={item.id} />
+
         );
 
         return (

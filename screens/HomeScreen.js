@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { View } from 'react-native'
 
 
 class HomeScreen extends React.Component {

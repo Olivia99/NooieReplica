@@ -9,6 +9,7 @@ import AddDeviceBS from './screens/pairing/addDeviceBS'
 import AddDeviceSC from './screens/pairing/addDeviceSC'
 import NameDevice from './screens/pairing/nameDevice'
 import Installation from './screens/pairing/installation';
+import BaseStationStatus from './components/BaseStationStatus.js';
 
 const Stack = createStackNavigator();
 
@@ -18,20 +19,20 @@ export default class App extends React.Component {
 
     return (
 
-      <NavigationContainer>
-        <Stack.Navigator >
-          <Stack.Screen
-            name="Add Device" component={AddDeviceBS}
-          />
-          <Stack.Screen name="Add Device2" component={AddDeviceSC} options={{ title: 'Add Device' }} />
-          <Stack.Screen name="Name Your Device" component={NameDevice} />
-          <Stack.Screen name="Installation" component={Installation} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      // <NavigationContainer>
+      //   <Stack.Navigator >
+      //     <Stack.Screen
+      //       name="Add Device" component={AddDeviceBS}
+      //     />
+      //     <Stack.Screen name="Add Device2" component={AddDeviceSC} options={{ title: 'Add Device' }} />
+      //     <Stack.Screen name="Name Your Device" component={NameDevice} />
+      //     <Stack.Screen name="Installation" component={Installation} />
+      //   </Stack.Navigator>
+      // </NavigationContainer>
 
-      // <Container>
-      //   <AddDeviceBS />
-      // </Container>
+      <Container>
+        <BaseStationScreen ref={(target) => deleteRef = target} />
+      </Container>
     );
   }
 }
