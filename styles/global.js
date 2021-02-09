@@ -14,12 +14,22 @@ const GlobalStyle = StyleSheet.create(
             height: '100%',
 
         },
+        containerDark: {
+
+            backgroundColor: '#464754',
+
+            flexDirection: 'column',
+            alignItems: 'center',
+            paddingTop: 20,
+            height: '100%',
+        },
         bodyText: {
             fontSize: 15,
             color: '#585967',
             textAlign: 'center',
-            paddingTop: 20,
-            padding: 20,
+            paddingTop: 40,
+            paddingLeft: 40,
+            paddingRight: 40,
         },
         primaryBtn: {
             backgroundColor: '#5069C7',
@@ -73,6 +83,12 @@ const GlobalStyle = StyleSheet.create(
             fontSize: 16,
             color: '#464754',
             fontWeight: '500',
+
+        },
+        liveView: {
+            width: '100%',
+            height: 250,
+
 
         }
 

@@ -10,6 +10,9 @@ import AddDeviceSC from './screens/pairing/addDeviceSC'
 import NameDevice from './screens/pairing/nameDevice'
 import Installation from './screens/pairing/installation';
 import BaseStationStatus from './components/BaseStationStatus.js';
+import LiveView from './components/liveView.js';
+import AddCam from './screens/pairing/addCam'
+import LiveViewScreen from './screens/liveViewScreen.js';
 
 const Stack = createStackNavigator();
 
@@ -31,7 +34,8 @@ export default class App extends React.Component {
       // </NavigationContainer>
 
       <Container>
-        <BaseStationScreen ref={(target) => deleteRef = target} />
+        {/* <BaseStationScreen ref={(target) => deleteRef = target} /> */}
+        <LiveViewScreen />
       </Container>
     );
   }
