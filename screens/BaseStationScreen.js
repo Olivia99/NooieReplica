@@ -48,18 +48,20 @@ class BaseStationScreen extends React.Component {
 
 
 
+
     addDevice() {
-        this.setState({
-            data: [
-                ...DevicesData, {
-                    id: 3,
-                    name: 'Master Room',
-                    image: require('../assets/birdHouse.png'),
-                    signal: 'Good'
-                }
-            ]
-        }
-        )
+        // this.setState({
+        //     data: [
+        //         ...DevicesData, {
+        //             id: 3,
+        //             name: 'Master Room',
+        //             image: require('../assets/birdHouse.png'),
+        //             signal: 'Good'
+        //         }
+        //     ]
+        // }
+        // )
+
 
 
     }
@@ -170,6 +172,7 @@ class BaseStationScreen extends React.Component {
         const pressHandler = (id) => {
             console.log(id)
         }
+        const { navigation } = this.props;
         const renderItem = ({ item }) => (
 
 
@@ -250,7 +253,7 @@ class BaseStationScreen extends React.Component {
                         renderItem={renderItem}
                         keyExtractor={item => item.id}
                     />
-                    <TouchableOpacity onPress={() => this.addDevice()}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Add Device')}>
                         <AddDeviceBtn ></AddDeviceBtn>
                     </TouchableOpacity>
 

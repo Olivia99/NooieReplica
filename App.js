@@ -13,6 +13,7 @@ import BaseStationStatus from './components/BaseStationStatus.js';
 import LiveView from './components/liveView.js';
 import AddCam from './screens/pairing/addCam'
 import LiveViewScreen from './screens/liveViewScreen.js';
+import { MyStack } from './navigator/Navigators.js';
 
 const Stack = createStackNavigator();
 
@@ -22,21 +23,12 @@ export default class App extends React.Component {
 
     return (
 
-      // <NavigationContainer>
-      //   <Stack.Navigator >
-      //     <Stack.Screen
-      //       name="Add Device" component={AddDeviceBS}
-      //     />
-      //     <Stack.Screen name="Add Device2" component={AddDeviceSC} options={{ title: 'Add Device' }} />
-      //     <Stack.Screen name="Name Your Device" component={NameDevice} />
-      //     <Stack.Screen name="Installation" component={Installation} />
-      //   </Stack.Navigator>
-      // </NavigationContainer>
+      <MyStack />
 
-      <Container>
-        {/* <BaseStationScreen ref={(target) => deleteRef = target} /> */}
-        <LiveViewScreen />
-      </Container>
+      // <Container>
+      //   <BaseStationScreen ref={(target) => deleteRef = target} />
+      //   <LiveViewScreen />
+      // </Container>
     );
   }
 }

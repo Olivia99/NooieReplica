@@ -26,7 +26,7 @@ const Installation = ({ navigation }) => (
 
 
 
-            <TouchableOpacity style={GlobalStyle.primaryBtn} onPress={() => navigation.push('Add Device2')}>
+            <TouchableOpacity style={GlobalStyle.primaryBtn} onPress={() => navigation.push('Live View')}>
                 <Text style={GlobalStyle.BtnText}>I’ve Installed Super Cam</Text>
             </TouchableOpacity>
 
