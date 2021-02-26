@@ -13,7 +13,8 @@ import BaseStationStatus from './components/BaseStationStatus.js';
 import LiveView from './components/liveView.js';
 import AddCam from './screens/pairing/addCam'
 import LiveViewScreen from './screens/liveViewScreen.js';
-import { MyStack } from './navigator/Navigators.js';
+import { HomeNavigation, MyStack } from './navigator/Navigators.js';
+import HomeScreen from './screens/HomeScreen.js'
 
 const Stack = createStackNavigator();
 
@@ -23,11 +24,12 @@ export default class App extends React.Component {
 
     return (
 
-      <MyStack />
+      <HomeNavigation />
+      // <MyStack />
 
       // <Container>
       //   <BaseStationScreen ref={(target) => deleteRef = target} />
-      //   <LiveViewScreen />
+      //   {/* <LiveViewScreen /> */}
       // </Container>
     );
   }

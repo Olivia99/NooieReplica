@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddDeviceBS from '../screens/pairing/addDeviceBS';
 import AddDeviceSC from '../screens/pairing/addDeviceSC';
 import NameDevice from '../screens/pairing/nameDevice';
@@ -8,8 +9,10 @@ import BaseStationScreen from '../screens/BaseStationScreen';
 import Installation from '../screens/pairing/installation';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import LiveViewScreen from '../screens/liveViewScreen';
+import HomeScreen from '../screens/HomeScreen';
 
 const Stack = createStackNavigator();
+const Tabs = createBottomTabNavigator();
 
 export const MyStack = (navigation) => {
     return (
@@ -99,4 +102,18 @@ export const BSPairingStack = (navigation) => {
     )
 }
 
+
+
+
+export const HomeNavigation = (navigation) => {
+    return (
+        <NavigationContainer>
+            <Tabs.Navigator>
+                <Tabs.Screen name="Cam" component={HomeScreen} />
+                <Tabs.Screen name="Home" component={HomeScreen} />
+                <Tabs.Screen name="Account" component={HomeScreen} />
+            </Tabs.Navigator>
+        </NavigationContainer>
+    )
+}
 

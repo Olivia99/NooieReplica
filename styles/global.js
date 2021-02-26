@@ -7,7 +7,6 @@ const GlobalStyle = StyleSheet.create(
         container: {
             flex: 1,
             backgroundColor: '#F3F0ED',
-
             flexDirection: 'column',
             alignItems: 'center',
             paddingTop: 20,
@@ -89,6 +88,34 @@ const GlobalStyle = StyleSheet.create(
             width: '100%',
             height: 250,
 
+
+        },
+        deviceCardContainer: {
+            backgroundColor: '#FCF6F1',
+            height: 85,
+            borderRadius: 15,
+            paddingRight: 40,
+            alignItems: 'center',
+            marginBottom: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            shadowOffset: { width: 4, height: 7, },
+            shadowColor: '#202C5A',
+            shadowOpacity: 0.15,
+            width: screenWidth - 40,
+        },
+        BSPreview: {
+            width: 115,
+            height: 90,
+            backgroundColor: '#FCF6F1',
+            shadowOffset: { width: 4, height: 7, },
+            shadowColor: '#202C5A',
+            shadowOpacity: 0.15,
+            justifyContent: 'center',
+            padding: 10,
+            alignItems: 'center',
+            borderRadius: 10,
+            marginRight: 20
 
         }
 

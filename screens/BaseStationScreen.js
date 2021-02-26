@@ -17,6 +17,7 @@ import AddDeviceBtn from '../components/AddDeviceBtn';
 import BaseStationStatus from '../components/BaseStationStatus';
 import ListItem from '../components/listItem';
 import DevicesData from '../components/Data'
+import { MyStack } from '../navigator/Navigators';
 
 
 
@@ -43,6 +44,7 @@ class BaseStationScreen extends React.Component {
             key: ""
 
         }
+
 
     }
 
@@ -172,6 +174,7 @@ class BaseStationScreen extends React.Component {
         const pressHandler = (id) => {
             console.log(id)
         }
+
         const { navigation } = this.props;
         const renderItem = ({ item }) => (
 
@@ -181,7 +184,9 @@ class BaseStationScreen extends React.Component {
         );
 
         return (
-            <Container>
+
+            <Container >
+
                 <Animated.View
                     style={{
                         transform: [{ translateY: this.state.pan.y }]
@@ -281,6 +286,8 @@ class BaseStationScreen extends React.Component {
                 </Animated.View>
 
             </Container >
+
+
         )
     }
 }
